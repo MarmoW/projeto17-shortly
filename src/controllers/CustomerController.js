@@ -27,16 +27,16 @@ export async function SignIn(req, res){
 
     try{
         const getUserInfo = await db.query("SELECT * FROM customers WHERE email=$1", [email])
-
-        if(getUserInfo.rowCount < 1) return res.sendStatus(409)
+        
+        if(getUserInfo.rowCount == 0) return res.sendStatus(409)
 
         const verifyPassword = bcrypt.compareSync(password, getUserInfo.rows[0].password)
-
-        if(!verifyPassword) return res.sendStatus(409)
-
+        
+        if(!verifyPassword) return res.sendStatus(409)//ver dps
+        
         const authToken = uuidV4()
 
-        await db.query(`INSERT ONE sessions (email, token, "userId") VALUES ($1, $2, $3)`, [email, authToken, verifyPassword.rows[0].id])
+        await db.query(`INSERT INTO sessions (token, "userId") VALUES ($1, $2)`, [authToken, getUserInfo.rows[0].id])
 
         res.status(200).send(authToken)
 
@@ -49,6 +49,7 @@ export async function SignIn(req, res){
 
 export async function GetUser(req, res){
     const {Authorization} = req.headers
+    
 
     if(!Authorization) return res.sendStatus(409)
 
