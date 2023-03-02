@@ -5,11 +5,11 @@ import { nanoid } from 'nanoid'
 
 export async function ShortenUrl(req, res){
     const { url } = req.body
-    const { token } = req.headers
-    console.log(token)
-    const authToken = token.replace("Bearer:", "")
-
-    if(!token) return res.status(409).send("token não informado")
+    const { authorization: bearerToken } = req.headers
+    
+    const authToken = bearerToken.replace("Bearer ", "")
+    console.log(authToken)
+    if(!authToken) return res.status(409).send("token não informado")
 
     try{
         const findSession = await db.query(`SELECT * FROM sessions WHERE "token"=$1`,[authToken])
