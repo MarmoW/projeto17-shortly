@@ -5,7 +5,7 @@
 -- Dumped from database version 15.2
 -- Dumped by pg_dump version 15.2
 
--- Started on 2023-03-02 17:25:07
+-- Started on 2023-03-02 17:42:28
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -172,9 +172,7 @@ ALTER TABLE ONLY public.url ALTER COLUMN id SET DEFAULT nextval('public.url_id_s
 -- Data for Name: customers; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.customers (id, name, email, password) FROM stdin;
-1	João                                              	joao@driven.com.br	$2b$10$xj/H/dNUyhsHwEnVHC8c6eecn6d0shNo/v31mR.6w3Jk56BU7cqMm
-\.
+INSERT INTO public.customers VALUES (1, 'João                                              ', 'joao@driven.com.br', '$2b$10$xj/H/dNUyhsHwEnVHC8c6eecn6d0shNo/v31mR.6w3Jk56BU7cqMm');
 
 
 --
@@ -183,13 +181,11 @@ COPY public.customers (id, name, email, password) FROM stdin;
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.sessions (id, "userId", token) FROM stdin;
-1	1	a304fa32-ec53-4b80-9f01-eb34925d42c6
-2	1	a304fa32-ec53-4b80-9f01-eb34925d42c6
-3	1	a304fa32-ec53-4b80-9f01-eb34925d42c6
-4	1	a304fa32-ec53-4b80-9f01-eb34925d42c6
-5	1	a304fa32-ec53-4b80-9f01-eb34925d42c6
-\.
+INSERT INTO public.sessions VALUES (1, 1, 'a304fa32-ec53-4b80-9f01-eb34925d42c6');
+INSERT INTO public.sessions VALUES (2, 1, 'a304fa32-ec53-4b80-9f01-eb34925d42c6');
+INSERT INTO public.sessions VALUES (3, 1, 'a304fa32-ec53-4b80-9f01-eb34925d42c6');
+INSERT INTO public.sessions VALUES (4, 1, 'a304fa32-ec53-4b80-9f01-eb34925d42c6');
+INSERT INTO public.sessions VALUES (5, 1, 'a304fa32-ec53-4b80-9f01-eb34925d42c6');
 
 
 --
@@ -198,8 +194,6 @@ COPY public.sessions (id, "userId", token) FROM stdin;
 -- Data for Name: url; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.url (id, "userId", url, "shortUrl", "visitCount") FROM stdin;
-\.
 
 
 --
@@ -265,7 +259,7 @@ ALTER TABLE ONLY public.url
     ADD CONSTRAINT url_pkey PRIMARY KEY (id);
 
 
--- Completed on 2023-03-02 17:25:07
+-- Completed on 2023-03-02 17:42:29
 
 --
 -- PostgreSQL database dump complete
