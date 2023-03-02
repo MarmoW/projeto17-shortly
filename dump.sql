@@ -5,7 +5,7 @@
 -- Dumped from database version 15.2
 -- Dumped by pg_dump version 15.2
 
--- Started on 2023-03-02 17:42:28
+-- Started on 2023-03-02 17:47:56
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -24,7 +24,7 @@ SET default_table_access_method = heap;
 
 --
 -- TOC entry 215 (class 1259 OID 16901)
--- Name: customers; Type: TABLE; Schema: public; Owner: postgres
+-- Name: customers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.customers (
@@ -35,11 +35,9 @@ CREATE TABLE public.customers (
 );
 
 
-ALTER TABLE public.customers OWNER TO postgres;
-
 --
 -- TOC entry 214 (class 1259 OID 16900)
--- Name: customers_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: customers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.customers_id_seq
@@ -51,12 +49,10 @@ CREATE SEQUENCE public.customers_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.customers_id_seq OWNER TO postgres;
-
 --
 -- TOC entry 3347 (class 0 OID 0)
 -- Dependencies: 214
--- Name: customers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: customers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.customers_id_seq OWNED BY public.customers.id;
@@ -64,7 +60,7 @@ ALTER SEQUENCE public.customers_id_seq OWNED BY public.customers.id;
 
 --
 -- TOC entry 217 (class 1259 OID 16941)
--- Name: sessions; Type: TABLE; Schema: public; Owner: postgres
+-- Name: sessions; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.sessions (
@@ -74,11 +70,9 @@ CREATE TABLE public.sessions (
 );
 
 
-ALTER TABLE public.sessions OWNER TO postgres;
-
 --
 -- TOC entry 216 (class 1259 OID 16940)
--- Name: sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: sessions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.sessions_id_seq
@@ -90,12 +84,10 @@ CREATE SEQUENCE public.sessions_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.sessions_id_seq OWNER TO postgres;
-
 --
 -- TOC entry 3348 (class 0 OID 0)
 -- Dependencies: 216
--- Name: sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: sessions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.sessions_id_seq OWNED BY public.sessions.id;
@@ -103,7 +95,7 @@ ALTER SEQUENCE public.sessions_id_seq OWNED BY public.sessions.id;
 
 --
 -- TOC entry 219 (class 1259 OID 16950)
--- Name: url; Type: TABLE; Schema: public; Owner: postgres
+-- Name: url; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.url (
@@ -115,11 +107,9 @@ CREATE TABLE public.url (
 );
 
 
-ALTER TABLE public.url OWNER TO postgres;
-
 --
 -- TOC entry 218 (class 1259 OID 16949)
--- Name: url_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: url_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.url_id_seq
@@ -131,12 +121,10 @@ CREATE SEQUENCE public.url_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.url_id_seq OWNER TO postgres;
-
 --
 -- TOC entry 3349 (class 0 OID 0)
 -- Dependencies: 218
--- Name: url_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: url_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.url_id_seq OWNED BY public.url.id;
@@ -144,7 +132,7 @@ ALTER SEQUENCE public.url_id_seq OWNED BY public.url.id;
 
 --
 -- TOC entry 3183 (class 2604 OID 16904)
--- Name: customers id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: customers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.customers ALTER COLUMN id SET DEFAULT nextval('public.customers_id_seq'::regclass);
@@ -152,7 +140,7 @@ ALTER TABLE ONLY public.customers ALTER COLUMN id SET DEFAULT nextval('public.cu
 
 --
 -- TOC entry 3184 (class 2604 OID 16944)
--- Name: sessions id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: sessions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.sessions ALTER COLUMN id SET DEFAULT nextval('public.sessions_id_seq'::regclass);
@@ -160,7 +148,7 @@ ALTER TABLE ONLY public.sessions ALTER COLUMN id SET DEFAULT nextval('public.ses
 
 --
 -- TOC entry 3185 (class 2604 OID 16953)
--- Name: url id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: url id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.url ALTER COLUMN id SET DEFAULT nextval('public.url_id_seq'::regclass);
@@ -169,7 +157,7 @@ ALTER TABLE ONLY public.url ALTER COLUMN id SET DEFAULT nextval('public.url_id_s
 --
 -- TOC entry 3337 (class 0 OID 16901)
 -- Dependencies: 215
--- Data for Name: customers; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: customers; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 INSERT INTO public.customers VALUES (1, 'João                                              ', 'joao@driven.com.br', '$2b$10$xj/H/dNUyhsHwEnVHC8c6eecn6d0shNo/v31mR.6w3Jk56BU7cqMm');
@@ -178,7 +166,7 @@ INSERT INTO public.customers VALUES (1, 'João                                  
 --
 -- TOC entry 3339 (class 0 OID 16941)
 -- Dependencies: 217
--- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 INSERT INTO public.sessions VALUES (1, 1, 'a304fa32-ec53-4b80-9f01-eb34925d42c6');
@@ -191,7 +179,7 @@ INSERT INTO public.sessions VALUES (5, 1, 'a304fa32-ec53-4b80-9f01-eb34925d42c6'
 --
 -- TOC entry 3341 (class 0 OID 16950)
 -- Dependencies: 219
--- Data for Name: url; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: url; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 
@@ -199,7 +187,7 @@ INSERT INTO public.sessions VALUES (5, 1, 'a304fa32-ec53-4b80-9f01-eb34925d42c6'
 --
 -- TOC entry 3350 (class 0 OID 0)
 -- Dependencies: 214
--- Name: customers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: customers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.customers_id_seq', 1, true);
@@ -208,7 +196,7 @@ SELECT pg_catalog.setval('public.customers_id_seq', 1, true);
 --
 -- TOC entry 3351 (class 0 OID 0)
 -- Dependencies: 216
--- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.sessions_id_seq', 5, true);
@@ -217,7 +205,7 @@ SELECT pg_catalog.setval('public.sessions_id_seq', 5, true);
 --
 -- TOC entry 3352 (class 0 OID 0)
 -- Dependencies: 218
--- Name: url_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: url_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.url_id_seq', 1, true);
@@ -225,7 +213,7 @@ SELECT pg_catalog.setval('public.url_id_seq', 1, true);
 
 --
 -- TOC entry 3187 (class 2606 OID 16910)
--- Name: customers customers_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: customers customers_email_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.customers
@@ -234,7 +222,7 @@ ALTER TABLE ONLY public.customers
 
 --
 -- TOC entry 3189 (class 2606 OID 16908)
--- Name: customers customers_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: customers customers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.customers
@@ -243,7 +231,7 @@ ALTER TABLE ONLY public.customers
 
 --
 -- TOC entry 3191 (class 2606 OID 16948)
--- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.sessions
@@ -252,14 +240,14 @@ ALTER TABLE ONLY public.sessions
 
 --
 -- TOC entry 3193 (class 2606 OID 16957)
--- Name: url url_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: url url_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.url
     ADD CONSTRAINT url_pkey PRIMARY KEY (id);
 
 
--- Completed on 2023-03-02 17:42:29
+-- Completed on 2023-03-02 17:47:56
 
 --
 -- PostgreSQL database dump complete
