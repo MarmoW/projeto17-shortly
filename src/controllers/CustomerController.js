@@ -57,12 +57,12 @@ export async function GetUser(req, res){
     const authToken = bearerToken.replace("Bearer ", "")
     
 
-    if(!authToken) return res.sendStatus(409)
+    if(!authToken) return res.sendStatus(401)
 
     try{
         const getSession = await db.query("SELECT * FROM sessions WHERE token=$1", [authToken])
 
-        if(getSessions.rowCount == 0) return res.sendStatus(404)
+        if(getSession.rowCount == 0) return res.sendStatus(401)
 
         const getUser = await db.query("SELECT * FROM customers WHERE id=$1", [getSession.rows[0].userId])
         const userUrl = await db.query("SELECT * FROM url WHERE 'userId'=$1",[getSession.rows[0].userId])
@@ -75,7 +75,7 @@ export async function GetUser(req, res){
             shortenedUrls: userUrl.rows
         }
 
-        res.status(201).send(objRes)
+        res.status(200).send(objRes)
 
 
     }catch(err){
