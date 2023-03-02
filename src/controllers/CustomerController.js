@@ -28,11 +28,11 @@ export async function SignIn(req, res){
     try{
         const getUserInfo = await db.query("SELECT * FROM customers WHERE email=$1", [email])
         
-        if(getUserInfo.rowCount == 0) return res.sendStatus(409)
+        if(getUserInfo.rowCount == 0) return res.sendStatus(401)
 
         const verifyPassword = bcrypt.compareSync(password, getUserInfo.rows[0].password)
         
-        if(!verifyPassword) return res.sendStatus(409)//ver dps
+        if(!verifyPassword) return res.sendStatus(401)//ver dps
         
         const authToken = uuidV4()
 
