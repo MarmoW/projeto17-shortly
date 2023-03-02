@@ -41,7 +41,7 @@ export async function SignIn(req, res){
         const resObj = {
             token: authToken
         }
-        
+
         res.status(200).send(resObj)
 
 
@@ -52,13 +52,15 @@ export async function SignIn(req, res){
 }
 
 export async function GetUser(req, res){
-    const {Authorization} = req.headers
+    const { authorization: bearerToken } = req.headers
+    
+    const authToken = bearerToken.replace("Bearer ", "")
     
 
-    if(!Authorization) return res.sendStatus(409)
+    if(!authToken) return res.sendStatus(409)
 
     try{
-        const getSession = await db.query("SELECT * FROM sessions WHERE token=$1", [Authorization])
+        const getSession = await db.query("SELECT * FROM sessions WHERE token=$1", [authToken])
 
         if(getSessions.rowCount == 0) return res.sendStatus(404)
 

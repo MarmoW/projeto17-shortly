@@ -9,18 +9,18 @@ export async function ShortenUrl(req, res){
     
     const authToken = bearerToken.replace("Bearer ", "")
     console.log(authToken)
-    if(!authToken) return res.status(409).send("token não informado")
+    if(!authToken) return res.status(401).send("token não informado")
 
     try{
         const findSession = await db.query(`SELECT * FROM sessions WHERE "token"=$1`,[authToken])
         
-        if(findSession.rowCount === 0) return res.status(409).send("Faça login novamente")
+        if(findSession.rowCount === 0) return res.status(401).send("Faça login novamente")
 
         const compactUrl = nanoid()
 
         await db.query(`INSERT INTO url ("shortUrl", url, "userId", "visitCount") VALUES ($1,$2,$3, 0)`, [compactUrl, url, findSession.rows[0].userId])
 
-        res.status(201).send(compactUrl)
+        res.status(201).send({shortUrl: compactUrl})
         
 
     }catch(err){
@@ -68,13 +68,15 @@ export async function OpenShortUrl(req, res){
 
 export async function DeleteById(req, res){
     const { id } = req.params
-    const {authorization} = req.headers
+    const { authorization: bearerToken } = req.headers
+    
+    const authToken = bearerToken.replace("Bearer ", "")
 
-    if(!authorization) return res.sendStatus(404)
+    if(!authToken) return res.sendStatus(404)
 
     try{
         const fullUrl = await db.query("SELECT * FROM url WHERE id=$1", [id])
-        const getSession = await db.query("SELECT * FROM sessions WHERE token=$1", [authorization])
+        const getSession = await db.query("SELECT * FROM sessions WHERE token=$1", [authToken])
 
         if(fullUrl.rowCount == 0) return res.sendStatus(404)
         if(fullUrl.rows[0].userId !== getSession.rows[0].userId) return res.sendStatus(401)
