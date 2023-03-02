@@ -20,7 +20,12 @@ export async function ShortenUrl(req, res){
 
         await db.query(`INSERT INTO url ("shortUrl", url, "userId", "visitCount") VALUES ($1,$2,$3, 0)`, [compactUrl, url, findSession.rows[0].userId])
 
-        res.status(201).send({shortUrl: compactUrl})
+        const urlId = await db.query(`SELECT * FROM url WHERE "shortUrl"=$1`,[compactUrl])
+
+        res.status(201).send({
+            id: urlId.rows[0].id,
+            shortUrl: compactUrl
+        })
         
 
     }catch(err){
@@ -38,7 +43,10 @@ export async function GetShortUrlById(req, res){
 
         if(fullUrl.rowCount == 0) return res.sendStatus(404)
 
-        res.status(200).send(fullUrl.rows[0])
+        res.status(200).send({
+            id: id,
+            shortUrl: fullUrl.rows[0]
+        })
 
     }catch(err){
         res.status(500).send(err.message)
