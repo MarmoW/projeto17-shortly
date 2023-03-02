@@ -65,7 +65,7 @@ export async function OpenShortUrl(req, res){
 
         const updatedVisits = fullUrl.rows[0].visitCount + 1
 
-        await db.query(`UPDATE url SET "visitCount"=$1 WHERE 'shortUrl'=$2`, [updatedVisits, shortUrl])
+        await db.query(`UPDATE url SET "visitCount"=$1 WHERE "shortUrl"=$2`, [updatedVisits, shortUrl])
 
         res.redirect(fullUrl.rows[0].url)
 
@@ -92,7 +92,7 @@ export async function DeleteById(req, res){
 
         await db.query("DELETE FROM url WHERE id=$1", [id])
         
-        res.sendStatus(200)
+        res.sendStatus(204)
 
 
     }catch(err){
