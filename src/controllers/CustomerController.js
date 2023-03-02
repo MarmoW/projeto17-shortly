@@ -65,7 +65,7 @@ export async function GetUser(req, res){
         if(getSession.rowCount == 0) return res.sendStatus(401)
 
         const getUser = await db.query("SELECT * FROM customers WHERE id=$1", [getSession.rows[0].userId])
-        const userUrl = await db.query("SELECT * FROM url WHERE 'userId'=$1",[getSession.rows[0].userId])
+        const userUrl = await db.query(`SELECT * FROM url WHERE "userId"=$1`,[getSession.rows[0].userId])
 
 
         const objRes = {
