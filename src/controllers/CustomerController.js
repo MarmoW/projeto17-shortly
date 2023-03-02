@@ -12,7 +12,7 @@ export async function SignUp(req, res){
         
         if(checkUserExists.rowCount > 0) return res.sendStatus(409)
 
-        await db.query("INSERT INTO customers (name, email, passwordHashed) VALUES ($1,$2,$3)",[name, email, passwordHashed])
+        await db.query(`INSERT INTO customers (name, email, password) VALUES ($1,$2,$3)`,[name, email, passwordHashed])
 
         res.sendStatus(201)
 
