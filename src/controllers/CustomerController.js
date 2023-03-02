@@ -38,7 +38,11 @@ export async function SignIn(req, res){
 
         await db.query(`INSERT INTO sessions (token, "userId") VALUES ($1, $2)`, [authToken, getUserInfo.rows[0].id])
 
-        res.status(200).send({authToken})
+        const resObj = {
+            token: authToken
+        }
+        
+        res.status(200).send(resObj)
 
 
     }catch(err){
