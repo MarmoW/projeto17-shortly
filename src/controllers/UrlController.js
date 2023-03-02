@@ -16,7 +16,7 @@ export async function ShortenUrl(req, res){
         
         if(findSession.rowCount === 0) return res.status(401).send("Faça login novamente")
 
-        const compactUrl = nanoid()
+        const compactUrl = nanoid(8)
 
         await db.query(`INSERT INTO url ("shortUrl", url, "userId", "visitCount") VALUES ($1,$2,$3, 0)`, [compactUrl, url, findSession.rows[0].userId])
 
@@ -58,16 +58,17 @@ export async function GetShortUrlById(req, res){
 export async function OpenShortUrl(req, res){
     const { shortUrl} = req.params
     console.log(shortUrl)
-    
+
     try{
         const fullUrl = await db.query(`SELECT * FROM url WHERE "shortUrl"=$1`,[shortUrl])
 
         if(fullUrl.rowCount == 0) return res.sendStatus(404)
 
-        const updatedVisits = fullUrl.rows[0].visitCount + 1
+        const updatedVisits = fullUrl.rows[0].visitCount
+
         console.log(updatedVisits)
 
-        await db.query(`UPDATE url SET "visitCount"=$1 WHERE "shortUrl"=$2`, [updatedVisits, shortUrl])
+        await db.query(`UPDATE url SET "visitCount"=$1 WHERE "shortUrl"=$2`, [updatedVisits +1, shortUrl])
 
         res.redirect(fullUrl.rows[0].url)
 
