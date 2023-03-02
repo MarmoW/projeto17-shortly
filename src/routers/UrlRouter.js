@@ -6,7 +6,7 @@ import { ShortenUrl, GetShortUrlById, OpenShortUrl, DeleteById } from '../contro
 const UrlRouter = Router()
 
 
-UrlRouter.post("/url/shorten", ValidateMiddleware(UrlSchema), ShortenUrl) //autenticada
+UrlRouter.post("/urls/shorten", ValidateMiddleware(UrlSchema), ShortenUrl) //autenticada
 
 UrlRouter.get("/urls/:id", GetShortUrlById) //autenticada
 
