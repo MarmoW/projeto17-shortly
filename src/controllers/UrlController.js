@@ -58,12 +58,14 @@ export async function GetShortUrlById(req, res){
 export async function OpenShortUrl(req, res){
     const { shortUrl} = req.params
     console.log(shortUrl)
+    
     try{
         const fullUrl = await db.query(`SELECT * FROM url WHERE "shortUrl"=$1`,[shortUrl])
 
         if(fullUrl.rowCount == 0) return res.sendStatus(404)
 
         const updatedVisits = fullUrl.rows[0].visitCount + 1
+        console.log(updatedVisits)
 
         await db.query(`UPDATE url SET "visitCount"=$1 WHERE "shortUrl"=$2`, [updatedVisits, shortUrl])
 
