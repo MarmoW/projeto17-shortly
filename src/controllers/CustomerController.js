@@ -10,7 +10,7 @@ export async function SignUp(req, res){
     try{
         const checkUserExists = await db.query("SELECT * FROM customers WHERE email=$1", [email])
         
-        if(checkUserExists.rows.length > 0) return res.sendStatus(409)
+        if(checkUserExists.rowCount > 0) return res.sendStatus(409)
 
         await db.query("INSERT INTO customers (name, email, passwordHashed) VALUES ($1,$2,$3)",[name, email, passwordHashed])
 
@@ -28,7 +28,7 @@ export async function SignIn(req, res){
     try{
         const getUserInfo = await db.query("SELECT * FROM customers WHERE email=$1", [email])
 
-        if(getUserInfo.rows.length < 1) return res.sendStatus(409)
+        if(getUserInfo.rowCount < 1) return res.sendStatus(409)
 
         const verifyPassword = bcrypt.compareSync(password, getUserInfo.rows[0].password)
 
@@ -36,7 +36,7 @@ export async function SignIn(req, res){
 
         const authToken = uuidV4()
 
-        await db.query("INSERT ONE sessions (email, token) VALUES ($1, $2)", [email, authToken])
+        await db.query(`INSERT ONE sessions (email, token, "userId") VALUES ($1, $2, $3)`, [email, authToken, verifyPassword.rows[0].id])
 
         res.status(200).send(authToken)
 
@@ -44,5 +44,36 @@ export async function SignIn(req, res){
     }catch(err){
         res.status(500).send(err.message)
     }
+
+}
+
+export async function GetUser(req, res){
+    const {Authorization} = req.headers
+
+    if(!Authorization) return res.sendStatus(409)
+
+    try{
+        const getSession = await db.query("SELECT * FROM sessions WHERE token=$1", [Authorization])
+
+        if(getSessions.rowCount == 0) return res.sendStatus(404)
+
+        const getUser = await db.query("SELECT * FROM customers WHERE id=$1", [getSession.rows[0].userId])
+        const userUrl = await db.query("SELECT * FROM url WHERE 'userId'=$1",[getSession.rows[0].userId])
+
+
+        const objRes = {
+            id: getUser.rows[0].id,
+            name: getUser.rows[0].name,
+            visitCount: 0,
+            shortenedUrls: userUrl.rows
+        }
+
+        res.status(201).send(objRes)
+
+
+    }catch(err){
+        res.status(500).send(err.message)
+    }
+
 
 }
