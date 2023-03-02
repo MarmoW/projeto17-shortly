@@ -6,13 +6,13 @@ import { nanoid } from 'nanoid'
 export async function ShortenUrl(req, res){
     const { url } = req.body
     const { authorization } = req.headers
-    
-    console.log(authorization,"a")
+    console.log(authorization)
+    const token = authorization.replace("Bearer:", "")
 
     if(!authorization) return res.status(409).send("token não informado")
 
     try{
-        const findSession = await db.query(`SELECT * FROM sessions WHERE "token"=$1`,[authorization])
+        const findSession = await db.query(`SELECT * FROM sessions WHERE "token"=$1`,[token])
         
         if(findSession.rowCount == 0) return res.status(409).send("Faça login novamente")
 
