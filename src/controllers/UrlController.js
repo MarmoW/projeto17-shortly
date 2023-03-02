@@ -45,7 +45,8 @@ export async function GetShortUrlById(req, res){
 
         res.status(200).send({
             id: id,
-            url: fullUrl.rows[0].url
+            url: fullUrl.rows[0].url,
+            shortUrl: fullUrl.rows[0].shortUrl
         })
 
     }catch(err){
