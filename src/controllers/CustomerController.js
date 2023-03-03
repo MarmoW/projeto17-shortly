@@ -54,10 +54,11 @@ export async function SignIn(req, res){
 export async function GetUser(req, res){
     const { authorization: bearerToken } = req.headers
     
-    const authToken = bearerToken.replace("Bearer ", "")
-    
+    let authToken = bearerToken
 
     if(!authToken) return res.sendStatus(401)
+
+    authToken = bearerToken.replace("Bearer ", "")
 
     try{
         const getSession = await db.query("SELECT * FROM sessions WHERE token=$1", [authToken])
@@ -70,16 +71,16 @@ export async function GetUser(req, res){
         SELECT
           customers.id,
           customers.name,
-          SUM(urls."visitCount") AS "visitCount",
+          SUM(url."visitCount") AS "visitCount",
         ARRAY_AGG(json_build_object(
-          'id', urls.id,
-          'shortUrl', urls."shortenUrl",
-          'url', urls.url,
-          'visitCount', urls."visitCount"
+          'id', url.id,
+          'shortUrl', url."shortUrl",
+          'url', url.url,
+          'visitCount', url."visitCount"
         )) AS "shortenedUrls"
-        FROM users
-        LEFT JOIN urls 
-          ON customers.id = urls."userId"
+        FROM customers
+        LEFT JOIN url
+          ON customers.id = url."userId"
         WHERE customers.id = $1
         GROUP BY customers.id
         `, [getSession.rows[0].userId])
