@@ -5,7 +5,7 @@
 -- Dumped from database version 15.2
 -- Dumped by pg_dump version 15.2
 
--- Started on 2023-03-02 23:53:48
+-- Started on 2023-03-02 23:57:16
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -163,9 +163,7 @@ ALTER TABLE ONLY public.url ALTER COLUMN id SET DEFAULT nextval('public.url_id_s
 -- Data for Name: customers; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.customers (id, name, email, password, "createdAt") FROM stdin;
-1	João	joao@driven.com.br	$2b$10$5bdeIQNjiO4hqv4s8Pc7CersM31NgSby7MEysQBv8cA.H/l8vS3nO	2023-03-02 18:26:19.820007
-\.
+INSERT INTO public.customers VALUES (1, 'João', 'joao@driven.com.br', '$2b$10$5bdeIQNjiO4hqv4s8Pc7CersM31NgSby7MEysQBv8cA.H/l8vS3nO', '2023-03-02 18:26:19.820007');
 
 
 --
@@ -174,10 +172,8 @@ COPY public.customers (id, name, email, password, "createdAt") FROM stdin;
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.sessions (id, "userId", token, "createdAt") FROM stdin;
-1	1	e51515a1-16a0-463b-9d29-9636a15a5730	2023-03-02 18:26:39.326709
-2	1	0c9fcedb-4089-4c43-9133-c6992ca8ca1a	2023-03-02 20:22:49.934143
-\.
+INSERT INTO public.sessions VALUES (1, 1, 'e51515a1-16a0-463b-9d29-9636a15a5730', '2023-03-02 18:26:39.326709');
+INSERT INTO public.sessions VALUES (2, 1, '0c9fcedb-4089-4c43-9133-c6992ca8ca1a', '2023-03-02 20:22:49.934143');
 
 
 --
@@ -186,20 +182,18 @@ COPY public.sessions (id, "userId", token, "createdAt") FROM stdin;
 -- Data for Name: url; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.url (id, "userId", url, "shortUrl", "visitCount", "createdAt") FROM stdin;
-1	1	https://www.twitch.tv/xofaxd	DJPAZKrSHeif9Dqxr1zU3	0	2023-03-02 18:27:48.091215
-2	1	https://www.twitch.tv/xofaxd	gNi_62RGQAvXtYFAItjli	0	2023-03-02 18:34:53.930149
-4	1	https://www.twitch.tv/xofaxd	KV2fqHGUoadbd9tq2lJWk	0	2023-03-02 18:59:57.416972
-6	1	https://www.twitch.tv/xofaxd	juFPFdA1rz8DKIRqo8-5Z	0	2023-03-02 19:06:03.189751
-7	1	https://www.twitch.tv/xofaxd	9NevQcUHn9GqCM8tfuKyn	0	2023-03-02 19:07:24.273103
-8	1	https://www.twitch.tv/xofaxd	IzZEGtHrWlbfX_tTT04Wu	0	2023-03-02 19:14:44.394014
-9	1	https://www.twitch.tv/xofaxd	XCj3lMgKSay4ODNNRBSnc	0	2023-03-02 19:20:13.678997
-11	1	https://www.twitch.tv/xofaxd	9Y2_St9HSt97JHhesRuiz	0	2023-03-02 19:35:11.821354
-12	1	https://www.twitch.tv/xofaxd	QS-ZwFK7xelJv3VFDp3Gh	0	2023-03-02 19:35:26.298653
-10	1	https://www.twitch.tv/xofaxd	UT_ZxKrDbnMkRJ5TkYr9h	6	2023-03-02 19:35:04.96802
-3	1	https://www.twitch.tv/xofaxd	eoj5Duq5VW657Jnp4BJl-	9	2023-03-02 18:59:52.861963
-5	1	https://www.twitch.tv/xofaxd	8QtxGa60zlBHYrZubT5ca	39	2023-03-02 19:05:44.946887
-\.
+INSERT INTO public.url VALUES (1, 1, 'https://www.twitch.tv/xofaxd', 'DJPAZKrSHeif9Dqxr1zU3', 0, '2023-03-02 18:27:48.091215');
+INSERT INTO public.url VALUES (2, 1, 'https://www.twitch.tv/xofaxd', 'gNi_62RGQAvXtYFAItjli', 0, '2023-03-02 18:34:53.930149');
+INSERT INTO public.url VALUES (4, 1, 'https://www.twitch.tv/xofaxd', 'KV2fqHGUoadbd9tq2lJWk', 0, '2023-03-02 18:59:57.416972');
+INSERT INTO public.url VALUES (6, 1, 'https://www.twitch.tv/xofaxd', 'juFPFdA1rz8DKIRqo8-5Z', 0, '2023-03-02 19:06:03.189751');
+INSERT INTO public.url VALUES (7, 1, 'https://www.twitch.tv/xofaxd', '9NevQcUHn9GqCM8tfuKyn', 0, '2023-03-02 19:07:24.273103');
+INSERT INTO public.url VALUES (8, 1, 'https://www.twitch.tv/xofaxd', 'IzZEGtHrWlbfX_tTT04Wu', 0, '2023-03-02 19:14:44.394014');
+INSERT INTO public.url VALUES (9, 1, 'https://www.twitch.tv/xofaxd', 'XCj3lMgKSay4ODNNRBSnc', 0, '2023-03-02 19:20:13.678997');
+INSERT INTO public.url VALUES (11, 1, 'https://www.twitch.tv/xofaxd', '9Y2_St9HSt97JHhesRuiz', 0, '2023-03-02 19:35:11.821354');
+INSERT INTO public.url VALUES (12, 1, 'https://www.twitch.tv/xofaxd', 'QS-ZwFK7xelJv3VFDp3Gh', 0, '2023-03-02 19:35:26.298653');
+INSERT INTO public.url VALUES (10, 1, 'https://www.twitch.tv/xofaxd', 'UT_ZxKrDbnMkRJ5TkYr9h', 6, '2023-03-02 19:35:04.96802');
+INSERT INTO public.url VALUES (3, 1, 'https://www.twitch.tv/xofaxd', 'eoj5Duq5VW657Jnp4BJl-', 9, '2023-03-02 18:59:52.861963');
+INSERT INTO public.url VALUES (5, 1, 'https://www.twitch.tv/xofaxd', '8QtxGa60zlBHYrZubT5ca', 39, '2023-03-02 19:05:44.946887');
 
 
 --
@@ -265,7 +259,7 @@ ALTER TABLE ONLY public.url
     ADD CONSTRAINT url_pkey PRIMARY KEY (id);
 
 
--- Completed on 2023-03-02 23:53:48
+-- Completed on 2023-03-02 23:57:17
 
 --
 -- PostgreSQL database dump complete
