@@ -66,7 +66,7 @@ export async function OpenShortUrl(req, res){
 
         const updatedVisits = fullUrl.rows[0].visitCount
 
-        await db.query(`UPDATE url SET "visitCount"=$1 WHERE "shortUrl"=$2`, [updatedVisits +1, shortUrl])
+        await db.query(`UPDATE url SET "visitCount" = $1 WHERE "shortUrl" = $2`, [updatedVisits +1, shortUrl])
 
         console.log(fullUrl.rows[0].visitCount)
 
