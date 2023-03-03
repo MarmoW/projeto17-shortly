@@ -8,7 +8,7 @@ export async function ShortenUrl(req, res){
     const { authorization: bearerToken } = req.headers
     
     const authToken = bearerToken.replace("Bearer ", "")
-    console.log(authToken)
+     
     if(!authToken) return res.status(401).send("token não informado")
 
     try{
@@ -36,12 +36,11 @@ export async function ShortenUrl(req, res){
 
 export async function GetShortUrlById(req, res){
     const { id } = req.params
-    console.log(id)
-
+     
     try{    
         const fullUrl = await db.query("SELECT * FROM url WHERE id=$1", [id])
 
-        if(fullUrl.rowCount == 0) return res.sendStatus(404)
+        if(fullUrl.rowCount === 0) return res.sendStatus(404)
 
         res.status(200).send({
             id: id,
@@ -57,7 +56,6 @@ export async function GetShortUrlById(req, res){
 
 export async function OpenShortUrl(req, res){
     const { shortUrl} = req.params
-    console.log(shortUrl)
 
     try{
         const fullUrl = await db.query(`SELECT * FROM url WHERE "shortUrl"=$1`,[shortUrl])
@@ -67,8 +65,6 @@ export async function OpenShortUrl(req, res){
         const updatedVisits = fullUrl.rows[0].visitCount +1
 
         await db.query(`UPDATE url SET "visitCount" = $1 WHERE "shortUrl" = $2`, [updatedVisits, shortUrl])
-
-        console.log(fullUrl.rows[0].visitCount)
 
         res.redirect(fullUrl.rows[0].url)
 
@@ -82,9 +78,11 @@ export async function DeleteById(req, res){
     const { id } = req.params
     const { authorization: bearerToken } = req.headers
     
-    const authToken = bearerToken.replace("Bearer ", "")
+    let authToken = bearerToken
 
     if(!authToken) return res.sendStatus(404)
+
+    authToken = bearerToken.replace("Bearer ", "")
 
     try{
         const fullUrl = await db.query("SELECT * FROM url WHERE id=$1", [id])
