@@ -64,18 +64,27 @@ export async function GetUser(req, res){
 
         if(getSession.rowCount == 0) return res.sendStatus(401)
 
-        const getUser = await db.query("SELECT * FROM customers WHERE id=$1", [getSession.rows[0].userId])
-        const userUrl = await db.query(`SELECT * FROM url WHERE "userId"=$1`,[getSession.rows[0].userId])
+        //const getUser = await db.query("SELECT * FROM customers WHERE id=$1", [getSession.rows[0].userId])
+        //const userUrl = await db.query(`SELECT * FROM url WHERE "userId"=$1`,[getSession.rows[0].userId])
+        const getLinks = await db.query(`
+        SELECT
+          customers.id,
+          customers.name,
+          SUM(urls."visitCount") AS "visitCount",
+        ARRAY_AGG(json_build_object(
+          'id', urls.id,
+          'shortUrl', urls."shortenUrl",
+          'url', urls.url,
+          'visitCount', urls."visitCount"
+        )) AS "shortenedUrls"
+        FROM users
+        LEFT JOIN urls 
+          ON customers.id = urls."userId"
+        WHERE customers.id = $1
+        GROUP BY customers.id
+        `, [getSession.rows[0].userId])
 
-
-        const objRes = {
-            id: getUser.rows[0].id,
-            name: getUser.rows[0].name,
-            visitCount: 0,
-            shortenedUrls: userUrl.rows
-        }
-
-        res.status(200).send(objRes)
+        res.status(200).send(getLinks.rows[0])
 
 
     }catch(err){
