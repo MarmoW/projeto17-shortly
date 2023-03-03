@@ -70,7 +70,7 @@ export async function OpenShortUrl(req, res){
 
         console.log(fullUrl.rows[0].visitCount)
 
-        res.redirect(200, fullUrl.rows[0].url)
+        res.redirect(fullUrl.rows[0].url)
 
     }catch(err){
         res.status(500).send(err.message)
